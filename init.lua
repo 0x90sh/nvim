@@ -1,4 +1,3 @@
--- Ensure packer is loaded
 local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
@@ -12,18 +11,14 @@ end
 
 local packer_bootstrap = ensure_packer()
 
--- Load plugins using packer
 require('packer').startup(function(use)
-    -- Packer itself
     use 'wbthomason/packer.nvim'
 
-    -- Tree-sitter for syntax highlighting
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
 
-    -- Telescope for fuzzy finding
     use {
         'nvim-telescope/telescope.nvim',
         requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' }
@@ -112,19 +107,16 @@ vim.opt.number = true
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
--- Keybindings for Telescope
 vim.api.nvim_set_keymap('n', '<leader>ff', "<cmd>Telescope find_files<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fg', "<cmd>Telescope live_grep<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fb', "<cmd>Telescope buffers<CR>", { noremap = true, silent = true })
 
--- Keybinding for toggling Tree-sitter highlighting
 vim.api.nvim_set_keymap('n', '<leader>th', ":TSBufToggle highlight<CR>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>cd', ":lua NvimTreeChangeDir()<CR>", { noremap = true, silent = true })
 
 function NvimTreeChangeDir()
-    -- Prompt for directory input
     local input = vim.fn.input("📂 Path: ")
     local path
 
